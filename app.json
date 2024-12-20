@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Planning",
+    "slug": "hackathon-planning",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0090ff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.helldeal.hackathonplanning"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.helldeal.hackathonplanning"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/adaptive-icon.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e8e3d8d3-9f60-4c34-a508-0674700284de"
+      }
+    },
+    "owner": "helldeal"
+  }
+}
