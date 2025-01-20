@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
 import { Camera, CameraView } from "expo-camera";
-import { useIcs } from "../hooks/icsProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEvents } from "../hooks/eventsProvider";
 
 export default function ScanScreen({ navigation }: any) {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const { ics, setIcs } = useIcs();
-  const { setEvents } = useEvents();
   const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
@@ -21,17 +17,7 @@ export default function ScanScreen({ navigation }: any) {
   }, []);
 
   const handleBarcodeScanned = ({ data }: any) => {
-    if (!data.includes(".ics")) return;
     setScanned(true);
-
-    if (ics != data) {
-      console.log("clear events");
-      setEvents([]);
-    }
-    console.log("store ics");
-    AsyncStorage.setItem("ics", data);
-    console.log("set new ics");
-    setIcs(data);
     navigation.navigate("Home");
   };
 

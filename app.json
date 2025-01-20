@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Planning",
-    "slug": "hackathon-planning",
+    "name": "GetMyBook",
+    "slug": "getmybook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,14 +13,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.helldeal.hackathonplanning"
+      "bundleIdentifier": "com.helldeal.getmybook"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.helldeal.hackathonplanning"
+      "package": "com.helldeal.getmybook"
     },
     "web": {
       "favicon": "./assets/favicon.png"
