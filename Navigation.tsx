@@ -7,6 +7,8 @@ import * as Icon from "react-native-feather";
 import { createStackNavigator } from "@react-navigation/stack";
 import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SearchScreen from "./screens/SearchScreen";
+import { BookScreen } from "./screens/BookScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -17,6 +19,11 @@ export default function Navigation() {
         <Stack.Screen
           name="Nav"
           component={BottomNav}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="BookScreen"
+          component={BookScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -38,17 +45,15 @@ function BottomNav() {
   return (
     <BottomTab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "#fff",
+        tabBarActiveTintColor: "#e82604",
         tabBarInactiveTintColor: "#363636",
-        tabBarActiveBackgroundColor: "#0090ff",
-        tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
           bottom: 0,
           paddingHorizontal: 20,
           left: 0,
           right: 0,
-          height: 80,
+          height: 60,
           borderTopWidth: 1,
           backgroundColor: "#FFFFFFAA",
           borderTopColor: "#e5e5e5",
@@ -67,19 +72,27 @@ function BottomNav() {
       }}
     >
       <BottomTab.Screen
-        name="Home"
+        name="Nouveautés"
         component={HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <Icon.Home color={color} />,
+          tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="Profile"
+        name="Recherche"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Icon.Search color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Collection"
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <Icon.User color={color} />,
+          tabBarIcon: ({ color }) => <Icon.Book color={color} />,
         }}
       />
     </BottomTab.Navigator>
