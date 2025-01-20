@@ -1,6 +1,6 @@
 import axios from "axios";
 
-async function searchBook(query: string) {
+export async function searchBook(query: string) {
   const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(
     query
   )}&limit=10`;
@@ -13,4 +13,13 @@ async function searchBook(query: string) {
   }
 }
 
-export default searchBook;
+export async function getBook(worksKey: string) {
+  const url = `https://openlibrary.org${worksKey}.json`;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data from OpenLibrary:", error);
+    throw error;
+  }
+}
