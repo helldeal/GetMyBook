@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { TouchableOpacity, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Profile = ({ navigation }: any) => {
   const isFocused = useIsFocused();
@@ -15,8 +16,8 @@ const Profile = ({ navigation }: any) => {
   }, [isFocused]);
 
   return (
-    <View className="flex-1 bg-white  ">
-      <View className=" flex-row mt-10 justify-around">
+    <SafeAreaView className="flex-1 bg-white  ">
+      <View className=" flex-row justify-around">
         <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
           <Text className=" text-[#0090ff]">Connexion</Text>
         </TouchableOpacity>
@@ -27,7 +28,7 @@ const Profile = ({ navigation }: any) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

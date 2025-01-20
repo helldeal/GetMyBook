@@ -5,6 +5,7 @@ import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
 import { readList } from "../hooks/storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -23,5 +24,5 @@ export default function HomeScreen({ navigation }: any) {
     }
   }, [isFocused]);
 
-  return <View className="flex-1 bg-white pb-20"></View>;
+  return <SafeAreaView className="flex-1 bg-white pb-20"></SafeAreaView>;
 }
