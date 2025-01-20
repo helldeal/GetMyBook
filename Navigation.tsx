@@ -7,6 +7,7 @@ import * as Icon from "react-native-feather";
 import { createStackNavigator } from "@react-navigation/stack";
 import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SearchScreen from "./screens/SearchScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -72,6 +73,14 @@ function BottomNav() {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <Icon.Home color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Icon.Search color={color} />,
         }}
       />
       <BottomTab.Screen
