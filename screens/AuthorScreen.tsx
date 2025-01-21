@@ -18,7 +18,7 @@ export const AuthorScreen = ({ route, navigation }: any) => {
 
   useEffect(() => {
     if (isFocused) {
-      console.log("Nav on Book Page : ", authorKey);
+      console.log("Nav on Author Page : ", authorKey);
       init();
     }
   }, [isFocused]);

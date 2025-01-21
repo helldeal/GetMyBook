@@ -22,11 +22,6 @@ export default function Navigation() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="BookScreen"
-          component={BookScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="ScanScreen"
           component={ScanScreen}
           options={{ headerShown: false }}
@@ -45,6 +40,7 @@ function BottomNav() {
   return (
     <BottomTab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: "#e82604",
         tabBarInactiveTintColor: "#363636",
         tabBarStyle: {
@@ -75,15 +71,13 @@ function BottomNav() {
         name="Nouveautés"
         component={HomeScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Recherche"
-        component={SearchScreen}
+        component={SearchStack}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <Icon.Search color={color} />,
         }}
       />
@@ -91,10 +85,28 @@ function BottomNav() {
         name="Collection"
         component={ProfileScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <Icon.Book color={color} />,
         }}
       />
     </BottomTab.Navigator>
+  );
+}
+
+function SearchStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="BookScreen"
+        component={BookScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
