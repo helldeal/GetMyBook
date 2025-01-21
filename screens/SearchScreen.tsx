@@ -32,10 +32,6 @@ export default function SearchScreen({ navigation }: any) {
     }
     console.log("Search for: ", text);
     const searchResult = await searchBook(text);
-    console.log(
-      "Search Result: ",
-      searchResult && searchResult.map((book: any) => book.title)
-    );
     searchResult && setSearch(searchResult);
   };
 

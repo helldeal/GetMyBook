@@ -1,6 +1,12 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Image } from "expo-image";
 import { getAuthor, getBook, getEditions } from "../api/books";
 import * as Icon from "react-native-feather";
@@ -23,13 +29,6 @@ export const BookScreen = ({ route, navigation }: any) => {
       })
     );
     const editions = await getEditions(worksKey);
-    console.log(
-      "Editions: ",
-      editions.map(
-        (edition: any) =>
-          `${COVER_API_URL}${edition.key.replace("/books", "")}-S.jpg`
-      )
-    );
     setBook(book);
     setAuthors(authors);
     setEditions(editions);
@@ -44,11 +43,11 @@ export const BookScreen = ({ route, navigation }: any) => {
   }, [isFocused]);
 
   return (
-    <SafeAreaView className=" flex justify-start bg-white w-full h-full dark:bg-[#131f24]">
+    <SafeAreaView className=" flex justify-start bg-white w-full h-full">
       <ScrollView className="gap-2" showsVerticalScrollIndicator={false}>
         <View className="flex-row justify-start pt-4 px-6">
           <Icon.ArrowLeft
-            color={"#363636"}
+            color={"#e82604"}
             onPress={() => navigation.goBack()}
           />
         </View>
@@ -61,10 +60,14 @@ export const BookScreen = ({ route, navigation }: any) => {
                 <Text key={index}>{subject}</Text>
               ))}
         </View>
+        <Text>Auteur</Text>
         {authors &&
           authors.map((author: any, index: number) => (
-            <Text key={index}>{author.name}</Text>
+            <TouchableOpacity key={index}>
+              <Text className=" text-red-500">{author.name}</Text>
+            </TouchableOpacity>
           ))}
+        <Text>Editions</Text>
         {editions &&
           editions.map((edition: any, index: number) => (
             <View
@@ -77,16 +80,21 @@ export const BookScreen = ({ route, navigation }: any) => {
             >
               <Image
                 style={{ width: 70, height: 100 }}
-                source={{
-                  uri: `${COVER_API_URL}${edition.key.replace(
-                    "/books",
-                    ""
-                  )}-M.jpg`,
-                }}
+                source={
+                  edition.covers
+                    ? {
+                        uri: `${COVER_API_URL}/b/olid${edition.key.replace(
+                          "/books",
+                          ""
+                        )}-M.jpg`,
+                      }
+                    : {
+                        uri: `https://archive.org/download/placeholder-image/placeholder-image.jpg`,
+                      }
+                }
+                alt="Cover"
               />
-              <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                {edition.title}
-              </Text>
+              <Text className="ml-2 text-red-500">{edition.title}</Text>
             </View>
           ))}
       </ScrollView>

@@ -2,9 +2,9 @@ import axios from "axios";
 import { OPEN_LIBRARY_URL } from "../constants/Utils";
 
 export async function searchBook(query: string) {
-  const url = `${OPEN_LIBRARY_URL}/search.json?q=${encodeURIComponent(
+  const url = `${OPEN_LIBRARY_URL}/search.json?title=${encodeURIComponent(
     query
-  )}&limit=10`;
+  )}&limit=10&fields=title,key`;
   try {
     const response = await axios.get(url);
     return response.data.docs;
