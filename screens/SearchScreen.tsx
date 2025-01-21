@@ -26,6 +26,10 @@ export default function SearchScreen({ navigation }: any) {
 
   const handleSearchBook = async (text: string) => {
     setSearchText(text);
+    if (text.length < 3) {
+      setSearch([]);
+      return;
+    }
     console.log("Search for: ", text);
     const searchResult = await searchBook(text);
     console.log(
