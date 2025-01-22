@@ -11,6 +11,7 @@ import { Image } from "expo-image";
 import { getAuthor, getBook, getEditions } from "../api/books";
 import * as Icon from "react-native-feather";
 import { COVER_API_URL } from "../constants/Utils";
+import Loading from "../components/Loading";
 
 export const BookScreen = ({ route, navigation }: any) => {
   const { worksKey } = route.params;
@@ -23,14 +24,14 @@ export const BookScreen = ({ route, navigation }: any) => {
   const init = async () => {
     const book = await getBook(worksKey);
     console.log("Book: ", book.title);
+    setBook(book);
     const authors = await Promise.all(
       book.authors.map(async (author: any) => {
         return await getAuthor(author.author.key);
       })
     );
+    authors && setAuthors(authors);
     const editions = await getEditions(worksKey);
-    setBook(book);
-    setAuthors(authors);
     setEditions(editions);
     setLoading(false);
   };
@@ -44,60 +45,71 @@ export const BookScreen = ({ route, navigation }: any) => {
 
   return (
     <SafeAreaView className=" flex justify-start bg-white w-full h-full">
-      <ScrollView className="gap-2" showsVerticalScrollIndicator={false}>
-        <View className="flex-row justify-start pt-4 px-6">
-          <Icon.ArrowLeft
-            color={"#e82604"}
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-        <Text>{book.title}</Text>
-        <View className="flex-row justify-start items-center flex-wrap gap-2">
-          {book.subjects &&
-            book.subjects
-              .slice(0, 10)
-              .map((subject: any, index: number) => (
-                <Text key={index}>{subject}</Text>
-              ))}
-        </View>
-        <Text>Auteur</Text>
-        {authors &&
-          authors.map((author: any, index: number) => (
-            <TouchableOpacity key={index}>
-              <Text className=" text-red-500">{author.name}</Text>
-            </TouchableOpacity>
-          ))}
-        <Text>Editions</Text>
-        {editions &&
-          editions.map((edition: any, index: number) => (
-            <View
-              key={index}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                padding: 2,
-              }}
-            >
-              <Image
-                style={{ width: 70, height: 100 }}
-                source={
-                  edition.covers
-                    ? {
-                        uri: `${COVER_API_URL}/b/olid${edition.key.replace(
-                          "/books",
-                          ""
-                        )}-M.jpg`,
-                      }
-                    : {
-                        uri: `https://archive.org/download/placeholder-image/placeholder-image.jpg`,
-                      }
+      <View className="flex-row justify-start pt-4 px-6">
+        <Icon.ArrowLeft color={"#e82604"} onPress={() => navigation.goBack()} />
+      </View>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView className="gap-2">
+          <Text>{book.title}</Text>
+          <View className="flex-row justify-start items-center flex-wrap gap-2">
+            {book.subjects &&
+              book.subjects
+                .slice(0, 10)
+                .map((subject: any, index: number) => (
+                  <Text key={index}>{subject}</Text>
+                ))}
+          </View>
+          <Text>Auteur</Text>
+          {authors &&
+            authors.map((author: any, index: number) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() =>
+                  navigation.navigate("AuthorScreen", { authorKey: author.key })
                 }
-                alt="Cover"
-              />
-              <Text className="ml-2 text-red-500">{edition.title}</Text>
-            </View>
-          ))}
-      </ScrollView>
+              >
+                <Text className=" text-red-500">{author.name}</Text>
+              </TouchableOpacity>
+            ))}
+          <Text>Editions</Text>
+          {editions &&
+            editions.slice(0, 10).map((edition: any, index: number) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  padding: 2,
+                }}
+                onPress={() => {
+                  navigation.navigate("EditionScreen", {
+                    editionKey: edition.key,
+                  });
+                }}
+              >
+                <Image
+                  style={{ width: 70, height: 100 }}
+                  source={
+                    edition.covers
+                      ? {
+                          uri: `${COVER_API_URL}/b/olid${edition.key.replace(
+                            "/books",
+                            ""
+                          )}-M.jpg`,
+                        }
+                      : {
+                          uri: `https://archive.org/download/placeholder-image/placeholder-image.jpg`,
+                        }
+                  }
+                  alt="Cover"
+                />
+                <Text className="ml-2 text-red-500">{edition.title}</Text>
+              </TouchableOpacity>
+            ))}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

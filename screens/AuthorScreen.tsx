@@ -1,7 +1,8 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Text, SafeAreaView } from "react-native";
-import { getBook, getAuthor, getEditions } from "../api/books";
+import { Text, SafeAreaView, ScrollView } from "react-native";
+import { getAuthor } from "../api/books";
+import Loading from "../components/Loading";
 
 export const AuthorScreen = ({ route, navigation }: any) => {
   const { authorKey } = route.params;
@@ -23,8 +24,14 @@ export const AuthorScreen = ({ route, navigation }: any) => {
     }
   }, [isFocused]);
   return (
-    <SafeAreaView>
-      <Text>{author.name}</Text>
+    <SafeAreaView className=" flex justify-start bg-white w-full h-full">
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView className="gap-2" showsVerticalScrollIndicator={false}>
+          <Text>{author.name}</Text>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

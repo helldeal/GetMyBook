@@ -9,6 +9,8 @@ import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SearchScreen from "./screens/SearchScreen";
 import { BookScreen } from "./screens/BookScreen";
+import { AuthorScreen } from "./screens/AuthorScreen";
+import { EditionScreen } from "./screens/EditionScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -105,6 +107,18 @@ function SearchStack() {
       <Stack.Screen
         name="BookScreen"
         component={BookScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditionScreen"
+        component={EditionScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AuthorScreen"
+        component={AuthorScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

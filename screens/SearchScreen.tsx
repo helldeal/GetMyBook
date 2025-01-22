@@ -51,7 +51,7 @@ export default function SearchScreen({ navigation }: any) {
         <View className="flex w-full h-80 justify-center items-center"></View>
       )}
       <FlatList
-        data={search}
+        data={search.slice(0, 20)}
         keyExtractor={(_item, index) => index.toString()}
         ItemSeparatorComponent={() => (
           <View className="h-[1px] bg-[#e5e5e5] dark:bg-[#37464f]"></View>
