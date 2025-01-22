@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Icon from "react-native-feather";
 import { styles } from "../style/style";
 import { searchBook } from "../api/books";
+import Separator from "../components/Separator";
 
 export default function SearchScreen({ navigation }: any) {
   const [search, setSearch] = useState<any[]>(emptySearchArray);
@@ -61,9 +62,7 @@ export default function SearchScreen({ navigation }: any) {
       <FlatList
         data={search.slice(0, 20)}
         keyExtractor={(_item, index) => index.toString()}
-        ItemSeparatorComponent={() => (
-          <View className="h-[1px] bg-[#e5e5e5] dark:bg-[#37464f]"></View>
-        )}
+        ItemSeparatorComponent={() => <Separator />}
         renderItem={({ item }: any) => (
           <TouchableOpacity
             className="bg-white border-b-[#e5e5e5] flex justify-start align-middle dark:bg-[#131f24] dark:border-b-[#37464f]"

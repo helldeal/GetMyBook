@@ -54,7 +54,7 @@ function BottomNav() {
           height: 60,
           borderTopWidth: 1,
           backgroundColor: "#FFFFFFAA",
-          borderTopColor: "#e5e5e5",
+          borderTopColor: "#eeeeee",
           justifyContent: "space-between",
           shadowColor: "#fff",
         },

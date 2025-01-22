@@ -31,7 +31,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
   return (
     <SafeAreaView className=" flex justify-start bg-white w-full h-full">
       <View className="flex-row justify-start py-3 px-6  z-50">
-        <Icon.ArrowLeft color={"#e82604"} onPress={() => navigation.goBack()} />
+        <Icon.ArrowLeft color={"#b70707"} onPress={() => navigation.goBack()} />
       </View>
 
       {loading ? (
