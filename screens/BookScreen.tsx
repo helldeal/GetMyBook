@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { Image } from "expo-image";
 import { getAuthor, getBook, getEditions } from "../api/books";
@@ -53,14 +54,16 @@ export const BookScreen = ({ route, navigation }: any) => {
       ) : (
         <ScrollView className="gap-2">
           <Text>{book.title}</Text>
-          <View className="flex-row justify-start items-center flex-wrap gap-2">
-            {book.subjects &&
-              book.subjects
-                .slice(0, 10)
-                .map((subject: any, index: number) => (
-                  <Text key={index}>{subject}</Text>
-                ))}
-          </View>
+          <FlatList
+            data={book.subjects.slice(0, 10)}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Text className="bg-zinc-400 text-xs text-white p-1 px-1.5 m-1 rounded-3xl">
+                {item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
+              </Text>
+            )}
+          />
           <Text>Auteur</Text>
           {authors &&
             authors.map((author: any, index: number) => (

@@ -15,7 +15,7 @@ import { styles } from "../style/style";
 import { searchBook } from "../api/books";
 
 export default function SearchScreen({ navigation }: any) {
-  const [search, setSearch] = useState<any[]>([]);
+  const [search, setSearch] = useState<any[]>(emptySearchArray);
   const [searchText, setSearchText] = useState<string>("");
   const isFocused = useIsFocused();
 
@@ -28,7 +28,7 @@ export default function SearchScreen({ navigation }: any) {
   const handleSearchBook = async (text: string) => {
     setSearchText(text);
     if (text.length < 3) {
-      setSearch([]);
+      setSearch(emptySearchArray);
       return;
     }
     console.log("Search for: ", text);
@@ -90,3 +90,10 @@ export default function SearchScreen({ navigation }: any) {
     </SafeAreaView>
   );
 }
+
+const emptySearchArray = [
+  {
+    title: "Lord of Flies",
+    key: "/works/OL455327W",
+  },
+];
