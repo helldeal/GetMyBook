@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Icon from "react-native-feather";
 import { styles } from "../style/style";
 import { searchBook } from "../api/books";
 
@@ -45,6 +46,13 @@ export default function SearchScreen({ navigation }: any) {
             placeholderTextColor="#000"
             onChangeText={(text) => handleSearchBook(text)}
           />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ScanScreen");
+            }}
+          >
+            <Icon.Camera color="#000" />
+          </TouchableOpacity>
         </View>
       </View>
       {search.length < 1 && (

@@ -59,3 +59,17 @@ export async function getEdition(editionKey: string) {
     throw error;
   }
 }
+
+export async function getEditionFromISBN(isbn: string) {
+  const url = `${OPEN_LIBRARY_URL}/isbn/${isbn}.json`;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "getEditionFromISBN - Error fetching data from OpenLibrary:",
+      error
+    );
+    throw error;
+  }
+}
