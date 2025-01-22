@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Icon from "react-native-feather";
 import { styles } from "../style/style";
 import { searchBook } from "../api/books";
 
 export default function SearchScreen({ navigation }: any) {
-  const [search, setSearch] = useState<any[]>([]);
+  const [search, setSearch] = useState<any[]>(emptySearchArray);
   const [searchText, setSearchText] = useState<string>("");
   const isFocused = useIsFocused();
 
@@ -27,7 +28,7 @@ export default function SearchScreen({ navigation }: any) {
   const handleSearchBook = async (text: string) => {
     setSearchText(text);
     if (text.length < 3) {
-      setSearch([]);
+      setSearch(emptySearchArray);
       return;
     }
     console.log("Search for: ", text);
@@ -45,6 +46,13 @@ export default function SearchScreen({ navigation }: any) {
             placeholderTextColor="#000"
             onChangeText={(text) => handleSearchBook(text)}
           />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ScanScreen");
+            }}
+          >
+            <Icon.Camera color="#000" />
+          </TouchableOpacity>
         </View>
       </View>
       {search.length < 1 && (
@@ -82,3 +90,10 @@ export default function SearchScreen({ navigation }: any) {
     </SafeAreaView>
   );
 }
+
+const emptySearchArray = [
+  {
+    title: "Lord of Flies",
+    key: "/works/OL455327W",
+  },
+];

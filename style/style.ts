@@ -65,6 +65,9 @@ export const styles = StyleSheet.create({
   },
   searchBar: {
     display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
     flex: 1,
     backgroundColor: "#eeeeee",
     borderRadius: 10,

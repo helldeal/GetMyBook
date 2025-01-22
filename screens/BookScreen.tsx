@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { Image } from "expo-image";
 import { getAuthor, getBook, getEditions } from "../api/books";
@@ -45,7 +46,7 @@ export const BookScreen = ({ route, navigation }: any) => {
 
   return (
     <SafeAreaView className=" flex justify-start bg-white w-full h-full">
-      <View className="flex-row justify-start pt-4 px-6">
+      <View className="flex-row justify-start p-3 px-6 bg-white z-50">
         <Icon.ArrowLeft color={"#e82604"} onPress={() => navigation.goBack()} />
       </View>
       {loading ? (
@@ -53,14 +54,16 @@ export const BookScreen = ({ route, navigation }: any) => {
       ) : (
         <ScrollView className="gap-2">
           <Text>{book.title}</Text>
-          <View className="flex-row justify-start items-center flex-wrap gap-2">
-            {book.subjects &&
-              book.subjects
-                .slice(0, 10)
-                .map((subject: any, index: number) => (
-                  <Text key={index}>{subject}</Text>
-                ))}
-          </View>
+          <FlatList
+            data={book.subjects.slice(0, 10)}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Text className="bg-zinc-400 text-xs text-white p-1 px-1.5 m-1 rounded-3xl">
+                {item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
+              </Text>
+            )}
+          />
           <Text>Auteur</Text>
           {authors &&
             authors.map((author: any, index: number) => (
@@ -74,40 +77,37 @@ export const BookScreen = ({ route, navigation }: any) => {
               </TouchableOpacity>
             ))}
           <Text>Editions</Text>
-          {editions &&
-            editions.slice(0, 10).map((edition: any, index: number) => (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  padding: 2,
-                }}
-                onPress={() => {
-                  navigation.navigate("EditionScreen", {
-                    editionKey: edition.key,
-                  });
-                }}
-              >
-                <Image
-                  style={{ width: 70, height: 100 }}
-                  source={
-                    edition.covers
-                      ? {
-                          uri: `${COVER_API_URL}/b/olid${edition.key.replace(
-                            "/books",
-                            ""
-                          )}-M.jpg`,
-                        }
-                      : {
-                          uri: `https://archive.org/download/placeholder-image/placeholder-image.jpg`,
-                        }
-                  }
-                  alt="Cover"
-                />
-                <Text className="ml-2 text-red-500">{edition.title}</Text>
-              </TouchableOpacity>
-            ))}
+          <View>
+            {editions &&
+              editions.slice(0, 10).map((edition: any, index: number) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    padding: 10,
+                  }}
+                  className="border-y-[1px] border-[#e5e5e5]"
+                  onPress={() => {
+                    navigation.navigate("EditionScreen", {
+                      editionKey: edition.key,
+                    });
+                  }}
+                >
+                  <Image
+                    style={{ width: 80, height: 120 }}
+                    source={{
+                      uri: `${COVER_API_URL}/b/olid${edition.key.replace(
+                        "/books",
+                        ""
+                      )}-M.jpg`,
+                    }}
+                    alt="Cover"
+                  />
+                  <Text className="ml-2 text-red-500">{edition.title}</Text>
+                </TouchableOpacity>
+              ))}
+          </View>
         </ScrollView>
       )}
     </SafeAreaView>

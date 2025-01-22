@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
+import { View, Text, StyleSheet, StatusBar, Image, Alert } from "react-native";
 import { Camera, CameraView } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getEditionFromISBN } from "../api/books";
 
 export default function ScanScreen({ navigation }: any) {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -16,9 +17,17 @@ export default function ScanScreen({ navigation }: any) {
     getCameraPermissions();
   }, []);
 
-  const handleBarcodeScanned = ({ data }: any) => {
+  const handleBarcodeScanned = async ({ data }: any) => {
     setScanned(true);
-    navigation.navigate("Home");
+    const edition = await getEditionFromISBN(data);
+    if (edition) {
+      console.log("Edition: ", edition.title);
+      navigation.navigate("EditionScreen", {
+        editionKey: edition.key,
+      });
+    } else {
+      setScanned(false);
+    }
   };
 
   if (hasPermission === null) {
@@ -34,24 +43,18 @@ export default function ScanScreen({ navigation }: any) {
       <CameraView
         onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
         barcodeScannerSettings={{
-          barcodeTypes: ["qr", "pdf417"],
+          barcodeTypes: ["ean13", "code39", "code128"],
         }}
         style={StyleSheet.absoluteFillObject}
       />
       <View style={styles.overlayContainer}>
         <View style={styles.overlay}>
-          <Text style={styles.overlayText}>Scan the QR code</Text>
+          <Text style={styles.overlayText}>Scanner le Code Bar</Text>
         </View>
       </View>
       <View className="flex justify-center items-center">
         <Image source={require("../assets/scan.png")} className=" w-80 h-80" />
       </View>
-      {/* <TouchableOpacity
-      className="absolute bottom-10"
-      onPress={() => console.log("URL Manuellement")}
-      >
-      <Text>URL Manuellement</Text>
-      </TouchableOpacity> */}
     </View>
   );
 }
