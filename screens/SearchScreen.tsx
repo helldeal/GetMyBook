@@ -26,12 +26,12 @@ export default function SearchScreen({ navigation }: any) {
 
   const handleSearchBook = async (text: string) => {
     setSearchText(text);
+    if (text.length < 3) {
+      setSearch([]);
+      return;
+    }
     console.log("Search for: ", text);
     const searchResult = await searchBook(text);
-    console.log(
-      "Search Result: ",
-      searchResult && searchResult.map((book: any) => book.title)
-    );
     searchResult && setSearch(searchResult);
   };
 
@@ -51,7 +51,7 @@ export default function SearchScreen({ navigation }: any) {
         <View className="flex w-full h-80 justify-center items-center"></View>
       )}
       <FlatList
-        data={search}
+        data={search.slice(0, 20)}
         keyExtractor={(_item, index) => index.toString()}
         ItemSeparatorComponent={() => (
           <View className="h-[1px] bg-[#e5e5e5] dark:bg-[#37464f]"></View>

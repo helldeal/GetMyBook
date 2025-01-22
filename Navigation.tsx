@@ -9,6 +9,8 @@ import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SearchScreen from "./screens/SearchScreen";
 import { BookScreen } from "./screens/BookScreen";
+import { AuthorScreen } from "./screens/AuthorScreen";
+import { EditionScreen } from "./screens/EditionScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -19,11 +21,6 @@ export default function Navigation() {
         <Stack.Screen
           name="Nav"
           component={BottomNav}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="BookScreen"
-          component={BookScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -45,6 +42,7 @@ function BottomNav() {
   return (
     <BottomTab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: "#e82604",
         tabBarInactiveTintColor: "#363636",
         tabBarStyle: {
@@ -75,15 +73,13 @@ function BottomNav() {
         name="Nouveautés"
         component={HomeScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Recherche"
-        component={SearchScreen}
+        component={SearchStack}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <Icon.Search color={color} />,
         }}
       />
@@ -91,10 +87,40 @@ function BottomNav() {
         name="Collection"
         component={ProfileScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <Icon.Book color={color} />,
         }}
       />
     </BottomTab.Navigator>
+  );
+}
+
+function SearchStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="BookScreen"
+        component={BookScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditionScreen"
+        component={EditionScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AuthorScreen"
+        component={AuthorScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
