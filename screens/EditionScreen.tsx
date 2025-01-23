@@ -51,11 +51,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
       className=" flex justify-start bg-white w-full h-full"
       style={{ paddingTop: StatusBar.currentHeight }}
     >
-      <StatusBar
-        barStyle={"dark-content"}
-        translucent={true}
-        backgroundColor={"transparent"}
-      />
+      <StatusBar translucent barStyle={"light-content"} />
       <View className="flex-row justify-start py-3 px-6  z-50">
         <Icon.ArrowLeft color={"#b70707"} onPress={() => navigation.goBack()} />
       </View>
@@ -96,10 +92,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
           <Loading />
         </View>
       ) : (
-        <ScrollView
-          className="px-5 pt-60 bg-white"
-          showsVerticalScrollIndicator={false}
-        >
+        <ScrollView className="px-5 pt-60 bg-white">
           <View>
             <Text className=" text-3xl font-extralight ">
               {edition.title.toUpperCase()}

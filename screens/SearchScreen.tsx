@@ -5,11 +5,9 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  Image,
   TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Icon from "react-native-feather";
 import { styles } from "../style/style";
 import { searchBook } from "../api/books";
@@ -39,7 +37,7 @@ export default function SearchScreen({ navigation }: any) {
 
   return (
     <SafeAreaView className=" flex bg-white w-full h-full dark:bg-[#131f24]">
-      <View style={styles.searchBarwQR} className="mt-3 px-4">
+      <View style={styles.searchBarwQR} className="my-2 px-4">
         <View style={styles.searchBar}>
           <TextInput
             style={styles.searchBarInput}
@@ -56,33 +54,37 @@ export default function SearchScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
       </View>
-      {search.length < 1 && (
-        <View className="flex w-full h-80 justify-center items-center"></View>
-      )}
+      <Separator />
       <FlatList
+        className="px-5"
         data={search.slice(0, 20)}
         keyExtractor={(_item, index) => index.toString()}
         ItemSeparatorComponent={() => <Separator />}
         renderItem={({ item }: any) => (
           <TouchableOpacity
-            className="bg-white border-b-[#e5e5e5] flex justify-start align-middle dark:bg-[#131f24] dark:border-b-[#37464f]"
+            className="bg-white border-b-[#e5e5e5] flex flex-row justify-between items-center dark:bg-[#131f24] dark:border-b-[#37464f]"
             onPress={() =>
               navigation.navigate("BookScreen", { worksKey: item.key })
             }
           >
-            <View className="ml-4 py-3 flex-1 flex-row justify-start items-center">
-              {item.title
-                .split(new RegExp(`(${searchText})`, "gi"))
-                .map((part: string, index: number) =>
-                  part.toLowerCase() === searchText.toLowerCase() ? (
-                    <Text key={index} style={{ fontWeight: "bold" }}>
-                      {part}
-                    </Text>
-                  ) : (
-                    <Text key={index}>{part}</Text>
+            <View className="py-3 flex-1 flex-row justify-start items-center flex-wrap">
+              {searchText ? (
+                item.title
+                  .split(new RegExp(`(${searchText})`, "gi"))
+                  .map((part: string, index: number) =>
+                    part.toLowerCase() === searchText.toLowerCase() ? (
+                      <Text key={index} style={{ fontWeight: "bold" }}>
+                        {part}
+                      </Text>
+                    ) : (
+                      <Text key={index}>{part}</Text>
+                    )
                   )
-                )}
+              ) : (
+                <Text>{item.title}</Text>
+              )}
             </View>
+            <Icon.ChevronRight color={"#a1a1aa"} />
           </TouchableOpacity>
         )}
       />
@@ -91,6 +93,18 @@ export default function SearchScreen({ navigation }: any) {
 }
 
 const emptySearchArray = [
+  {
+    title: "Lord of Flies",
+    key: "/works/OL455327W",
+  },
+  {
+    title: "Lord of Flies",
+    key: "/works/OL455327W",
+  },
+  {
+    title: "Lord of Flies",
+    key: "/works/OL455327W",
+  },
   {
     title: "Lord of Flies",
     key: "/works/OL455327W",
