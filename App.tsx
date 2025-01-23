@@ -4,9 +4,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1 }} className="mt-0">
+    <View style={{ flex: 1 }} className="mt-0">
       <Navigation />
-      <StatusBar barStyle={"dark-content"} backgroundColor="transparent" />
-    </SafeAreaView>
+      <StatusBar
+        animated
+        barStyle={"dark-content"}
+        backgroundColor="transparent"
+      />
+    </View>
   );
 }

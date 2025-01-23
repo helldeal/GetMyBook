@@ -73,7 +73,7 @@ export const BookScreen = ({ route, navigation }: any) => {
                   ))}
             </View>
           </View>
-          <Separator /> {/* Separator component */}
+          <Separator />
           <View>
             <Text className="pt-2 text-xl">Auteur</Text>
             {authors &&
@@ -92,7 +92,7 @@ export const BookScreen = ({ route, navigation }: any) => {
                 </TouchableOpacity>
               ))}
           </View>
-          <Separator /> {/* Separator component */}
+          <Separator />
           <Text className="py-2  text-xl">Editions</Text>
           <View>
             {editions &&
@@ -103,7 +103,7 @@ export const BookScreen = ({ route, navigation }: any) => {
                     flexDirection: "row",
                     alignItems: "center",
                   }}
-                  className="py-3 border-b-[1px] border-[#eeeeee] "
+                  className="relative py-3 border-b-[1px] border-[#eeeeee] "
                   onPress={() => {
                     navigation.navigate("EditionScreen", {
                       editionKey: edition.key,
@@ -112,6 +112,7 @@ export const BookScreen = ({ route, navigation }: any) => {
                 >
                   <Image
                     style={{ width: 80, height: 120 }}
+                    className="bg-gray-100"
                     source={{
                       uri: `${COVER_API_URL}/b/olid${edition.key.replace(
                         "/books",
@@ -120,7 +121,7 @@ export const BookScreen = ({ route, navigation }: any) => {
                     }}
                     alt="Cover"
                   />
-                  <View className="ml-2">
+                  <View className="ml-2 w-[70%]">
                     <Text className="text-red-700 text-lg">
                       {edition.title}
                     </Text>
