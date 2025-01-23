@@ -4,6 +4,7 @@ import { View, Text, FlatList, TouchableOpacity, Modal } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Icon from "react-native-feather";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen({ navigation }: any) {
   const isFocused = useIsFocused();
