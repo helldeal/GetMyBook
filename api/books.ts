@@ -73,3 +73,17 @@ export async function getEditionFromISBN(isbn: string) {
     throw error;
   }
 }
+
+export async function getEditionFromAuthor(authorKey: string) {
+  const url = `${OPEN_LIBRARY_URL}${authorKey}/works.json?limit=1000`;//https://openlibrary.org/authors/OL1394244A/works.json?limit=1000
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "getEditionFromAuthor - Error fetching data from OpenLibrary:",
+      error
+    );
+    throw error;
+  }
+}
