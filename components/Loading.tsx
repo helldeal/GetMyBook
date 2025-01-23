@@ -16,7 +16,7 @@ const Loading = () => {
       <ActivityIndicator
         className="self-center -mt-[50%]"
         size={60}
-        color="#e82604"
+        color="#b70707"
       />
     </View>
   );

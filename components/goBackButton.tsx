@@ -7,7 +7,7 @@ const GoBackButton = ({ navigation }: any) => {
     <ArrowLeft
       height={30}
       width={30}
-      color={"#e82604"}
+      color={"#440000"}
       onPress={() => navigation.goBack()}
     />
   );

@@ -13,6 +13,7 @@ import { getAuthor, getBook, getEditions } from "../api/books";
 import * as Icon from "react-native-feather";
 import { COVER_API_URL } from "../constants/Utils";
 import Loading from "../components/Loading";
+import Separator from "../components/Separator";
 
 export const BookScreen = ({ route, navigation }: any) => {
   const { worksKey } = route.params;
@@ -46,37 +47,53 @@ export const BookScreen = ({ route, navigation }: any) => {
 
   return (
     <SafeAreaView className=" flex justify-start bg-white w-full h-full">
-      <View className="flex-row justify-start p-3 px-6 bg-white z-50">
-        <Icon.ArrowLeft color={"#e82604"} onPress={() => navigation.goBack()} />
+      <View className="flex-row justify-start p-3 px-6 bg-white z-50 border-b-[1px] border-[#eeeeee]">
+        <Icon.ArrowLeft color={"#b70707"} onPress={() => navigation.goBack()} />
       </View>
       {loading ? (
         <Loading />
       ) : (
-        <ScrollView className="gap-2">
-          <Text>{book.title}</Text>
-          <FlatList
-            data={book.subjects.slice(0, 10)}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <Text className="bg-zinc-400 text-xs text-white p-1 px-1.5 m-1 rounded-3xl">
-                {item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
-              </Text>
-            )}
-          />
-          <Text>Auteur</Text>
-          {authors &&
-            authors.map((author: any, index: number) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() =>
-                  navigation.navigate("AuthorScreen", { authorKey: author.key })
-                }
-              >
-                <Text className=" text-red-500">{author.name}</Text>
-              </TouchableOpacity>
-            ))}
-          <Text>Editions</Text>
+        <ScrollView className="flex gap-2 px-5">
+          <View className="flex flex-col justify-start items-start gap-2 pb-4">
+            <Text className="pt-4 text-3xl font-light ">
+              {book.title.toUpperCase()}
+            </Text>
+            <View className="flex-row gap-2 flex-wrap justify-start">
+              {book.subjects &&
+                book.subjects
+                  .slice(0, 10)
+                  .map((subject: any, index: number) => (
+                    <Text
+                      key={index}
+                      className="bg-zinc-400 text-xs text-white p-1 px-1.5 rounded-3xl"
+                    >
+                      {subject.charAt(0).toUpperCase() +
+                        subject.slice(1).toLowerCase()}
+                    </Text>
+                  ))}
+            </View>
+          </View>
+          <Separator />
+          <View>
+            <Text className="pt-2 text-xl">Auteur</Text>
+            {authors &&
+              authors.map((author: any, index: number) => (
+                <TouchableOpacity
+                  key={index}
+                  className="flex flex-row justify-between items-center py-4"
+                  onPress={() =>
+                    navigation.navigate("AuthorScreen", {
+                      authorKey: author.key,
+                    })
+                  }
+                >
+                  <Text className=" text-red-700 text-lg">{author.name}</Text>
+                  <Icon.ChevronRight color={"#a1a1aa"} />
+                </TouchableOpacity>
+              ))}
+          </View>
+          <Separator />
+          <Text className="py-2  text-xl">Editions</Text>
           <View>
             {editions &&
               editions.slice(0, 10).map((edition: any, index: number) => (
@@ -85,9 +102,8 @@ export const BookScreen = ({ route, navigation }: any) => {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    padding: 10,
                   }}
-                  className="border-y-[1px] border-[#e5e5e5]"
+                  className="relative py-3 border-b-[1px] border-[#eeeeee] "
                   onPress={() => {
                     navigation.navigate("EditionScreen", {
                       editionKey: edition.key,
@@ -96,6 +112,7 @@ export const BookScreen = ({ route, navigation }: any) => {
                 >
                   <Image
                     style={{ width: 80, height: 120 }}
+                    className="bg-gray-100"
                     source={{
                       uri: `${COVER_API_URL}/b/olid${edition.key.replace(
                         "/books",
@@ -104,7 +121,18 @@ export const BookScreen = ({ route, navigation }: any) => {
                     }}
                     alt="Cover"
                   />
-                  <Text className="ml-2 text-red-500">{edition.title}</Text>
+                  <View className="ml-2 w-[70%]">
+                    <Text className="text-red-700 text-lg">
+                      {edition.title}
+                    </Text>
+                    <Text className="text-gray-500 text-sm">
+                      {edition.publishers && edition.publishers[0]}
+                    </Text>
+                  </View>
+                  <Icon.ChevronRight
+                    color={"#a1a1aa"}
+                    className="absolute right-0"
+                  />
                 </TouchableOpacity>
               ))}
           </View>

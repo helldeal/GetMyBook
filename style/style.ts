@@ -51,7 +51,6 @@ export const styles = StyleSheet.create({
     gap: 19,
     marginHorizontal: 10,
     flexDirection: "row",
-    height: 50,
   },
   searchBarContainer: {
     borderBottomWidth: 0,
