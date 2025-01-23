@@ -41,7 +41,7 @@ export const CollecScreen = ({ navigation }: any) => {
           onPress={() => setCollecBool(false)}
         >
           <Text style={{ color: collecBool ? "#b91c1c" : "white" }}>
-            Wishlist
+            Suivis
           </Text>
         </TouchableOpacity>
       </View>

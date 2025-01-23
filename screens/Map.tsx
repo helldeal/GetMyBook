@@ -35,18 +35,18 @@ export default function MapScreen({ navigation }: any) {
         let location = await Location.getCurrentPositionAsync({});
         setCurrentLocation(location.coords);
         if (!onCurrentLocation) {
-          // const animateToCoordinat = (lat: number, long: number) => {
-          //   mapRef.current?.animateCamera({
-          //     center: {
-          //       latitude: lat,
-          //       longitude: long,
-          //     },
-          //   });
-          // };
-          // animateToCoordinat(
-          //   location.coords.latitude,
-          //   location.coords.longitude
-          // );
+          const animateToCoordinat = (lat: number, long: number) => {
+            mapRef.current?.animateCamera({
+              center: {
+                latitude: lat,
+                longitude: long,
+              },
+            });
+          };
+          animateToCoordinat(
+            location.coords.latitude,
+            location.coords.longitude
+          );
           setOnCurrentLocation(true);
         }
       };
@@ -75,6 +75,8 @@ export default function MapScreen({ navigation }: any) {
                   longitude: point.longitude,
                 }}
                 tracksViewChanges={false}
+                title={point.Designation}
+                description={point.result_label}
               ></Marker>
             );
           })}

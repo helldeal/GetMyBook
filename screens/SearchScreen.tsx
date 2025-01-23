@@ -98,15 +98,31 @@ const emptySearchArray = [
     key: "/works/OL455327W",
   },
   {
-    title: "Lord of Flies",
-    key: "/works/OL455327W",
+    title: "Atomic Habits",
+    key: "/works/OL17930368W",
   },
   {
-    title: "Lord of Flies",
-    key: "/works/OL455327W",
+    title: "It Ends With Us",
+    key: "/works/OL18020194W",
   },
   {
-    title: "Lord of Flies",
-    key: "/works/OL455327W",
+    title: "The 48 Laws of Power",
+    key: "/works/OL1968368W",
+  },
+  {
+    title: "The Subtle Art of Not Giving a F*ck",
+    key: "/works/OL17590212W",
+  },
+  {
+    title: "Rich Dad, Poor Dad",
+    key: "/works/OL2010879W",
+  },
+  {
+    title: "Um casamento arranjado",
+    key: "/works/OL35351151W",
+  },
+  {
+    title: "Control Your Mind and Master Your Feelings ",
+    key: "/works/OL25312237W",
   },
 ];
