@@ -161,14 +161,13 @@ export const EditionScreen = ({ route, navigation }: any) => {
             {edition.number_of_pages && (
               <View className="flex flex-row items-center">
                 <Icon.BookOpen className="mr-2" color={"#000"} width={20} />
-                <Text>{edition.number_of_pages}</Text>
+                <Text>{edition.number_of_pages} pages</Text>
               </View>
             )}
             {(edition.isbn_13 || edition.isbn_10) && (
               <View className="flex flex-row items-center">
                 <Icon.Camera className="mr-2" color={"#000"} width={20} />
                 <Text>
-                  ISBN:{" "}
                   {edition.isbn_13
                     ? edition.isbn_13[0]
                     : edition.isbn_10 && edition.isbn_10[0]}
