@@ -4,12 +4,11 @@
     "slug": "getmybook",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash1.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0090ff"
+      "backgroundColor": "#b70707"
     },
     "ios": {
       "supportsTablet": true,
