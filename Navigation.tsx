@@ -38,59 +38,89 @@ export default function Navigation() {
   );
 }
 
+import { KeyboardAvoidingView, Platform, Keyboard, View } from "react-native";
+import { useEffect, useState } from "react";
+
 function BottomNav() {
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
-    <BottomTab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: "#e82604",
-        tabBarInactiveTintColor: "#363636",
-        tabBarStyle: {
-          position: "absolute",
-          bottom: 0,
-          paddingHorizontal: 20,
-          left: 0,
-          right: 0,
-          height: 60,
-          borderTopWidth: 1,
-          backgroundColor: "#FFFFFFAA",
-          borderTopColor: "#e5e5e5",
-          justifyContent: "space-between",
-          shadowColor: "#fff",
-        },
-        tabBarIconStyle: {
-          color: "#fff",
-        },
-        tabBarItemStyle: {
-          top: 15,
-          bottom: 15,
-          height: "61%",
-          borderRadius: 50,
-        },
-      }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
-      <BottomTab.Screen
-        name="Nouveautés"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
+      <BottomTab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: "#e82604",
+          tabBarInactiveTintColor: "#363636",
+          tabBarStyle: {
+            display: keyboardVisible ? "none" : "flex", // Masquer complètement
+            position: "relative",
+            paddingHorizontal: 20,
+            left: 0,
+            right: 0,
+            height: 60,
+            borderTopWidth: 1,
+            backgroundColor: "#FFFFFFAA",
+            borderTopColor: "#e5e5e5",
+            justifyContent: "space-between",
+            shadowColor: "#fff",
+          },
+          tabBarIconStyle: {
+            color: "#fff",
+          },
+          tabBarItemStyle: {
+            top: 15,
+            bottom: 15,
+            height: "61%",
+            borderRadius: 50,
+          },
         }}
-      />
-      <BottomTab.Screen
-        name="Recherche"
-        component={SearchStack}
-        options={{
-          tabBarIcon: ({ color }) => <Icon.Search color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Collection"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color }) => <Icon.Book color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
+      >
+        <BottomTab.Screen
+          name="Nouveautés"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Recherche"
+          component={SearchStack}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.Search color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Collection"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.Book color={color} />,
+          }}
+        />
+      </BottomTab.Navigator>
+    </KeyboardAvoidingView>
   );
 }
 
