@@ -8,7 +8,6 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./screens/HomeScreen";
-import ProfileScreen from "./screens/ProfileScreen";
 import * as Icon from "react-native-feather";
 import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -17,6 +16,7 @@ import { BookScreen } from "./screens/BookScreen";
 import { AuthorScreen } from "./screens/AuthorScreen";
 import { EditionScreen } from "./screens/EditionScreen";
 import MapScreen from "./screens/Map";
+import { CollecScreen } from "./screens/CollecScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -66,7 +66,7 @@ function BottomNav() {
           tabBarActiveTintColor: "#e82604",
           tabBarInactiveTintColor: "#363636",
           tabBarStyle: {
-            display: keyboardVisible ? "none" : "flex", // Masquer complètement
+            display: keyboardVisible ? "none" : "flex",
             position: "relative",
             paddingHorizontal: 20,
             left: 0,
@@ -105,7 +105,7 @@ function BottomNav() {
         />
         <BottomTab.Screen
           name="Collection"
-          component={ProfileScreen}
+          component={CollecScreen}
           options={{
             tabBarIcon: ({ color }) => <Icon.Book color={color} />,
           }}
