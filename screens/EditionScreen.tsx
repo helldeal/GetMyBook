@@ -15,6 +15,9 @@ import Loading from "../components/Loading";
 import * as Icon from "react-native-feather";
 import { COVER_API_URL } from "../constants/Utils";
 import Separator from "../components/Separator";
+import BookScreenHeader from "../components/BookScreenHeader";
+import { useCollec } from "../hooks/collectProvider";
+import { useWishlist } from "../hooks/wishlistProvider";
 
 export const EditionScreen = ({ route, navigation }: any) => {
   const { editionKey } = route.params;
@@ -22,6 +25,27 @@ export const EditionScreen = ({ route, navigation }: any) => {
   const [book, setBook] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const isFocused = useIsFocused();
+  const { collec, setCollec } = useCollec();
+  const { wishlist, setWishlist } = useWishlist();
+
+  const handleCollec = () => {
+    if (collec.some((item: any) => item.key === edition.key)) {
+      setCollec(collec.filter((item: any) => item.key !== edition.key));
+    } else {
+      setCollec([...collec, edition]);
+      if (!wishlist.some((item: any) => item.key === edition.key)) {
+        setWishlist([...wishlist, edition]);
+      }
+    }
+  };
+
+  const handleWishlist = () => {
+    if (wishlist.some((item: any) => item.key === edition.key)) {
+      setWishlist(wishlist.filter((item: any) => item.key !== edition.key));
+    } else {
+      setWishlist([...wishlist, edition]);
+    }
+  };
 
   const init = async () => {
     const edition = await getEdition(editionKey);
@@ -33,7 +57,6 @@ export const EditionScreen = ({ route, navigation }: any) => {
   };
 
   const amazonHandlePress = useCallback(async () => {
-    console.log("Amazon Pressed");
     const url = edition.identifiers?.amazon
       ? "https://www.amazon.fr/dp/" + edition.identifiers.amazon[0]
       : "https://www.amazon.fr/s?k=" + edition.isbn_10[0];
@@ -52,9 +75,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
       style={{ paddingTop: StatusBar.currentHeight }}
     >
       <StatusBar translucent barStyle={"light-content"} />
-      <View className="flex-row justify-start py-3 px-6  z-50">
-        <Icon.ArrowLeft color={"#b70707"} onPress={() => navigation.goBack()} />
-      </View>
+      <BookScreenHeader navigation={navigation} />
 
       <View className=" absolute flex justify-center w-full h-72 bg-gray-100 top-0 z-20">
         <Image
@@ -103,7 +124,68 @@ export const EditionScreen = ({ route, navigation }: any) => {
               </Text>
             )}
           </View>
-          <View></View>
+          <View className="flex-row justify-around py-4 gap-5">
+            <TouchableOpacity
+              className=" flex-1 flex-row p-2 px-4 rounded-3xl border-red-700 border-[1px] items-center"
+              style={{
+                backgroundColor: collec.some(
+                  (item: any) => item.key === edition.key
+                )
+                  ? "#b91c1c"
+                  : "transparent",
+              }}
+              onPress={handleCollec}
+            >
+              {collec.some((item: any) => item.key === edition.key) ? (
+                <Icon.CheckCircle color={"white"} />
+              ) : (
+                <Icon.PlusCircle color={"#b91c1c"} />
+              )}
+              <Text
+                className="flex-1 text-center text-lg"
+                style={{
+                  color: collec.some((item: any) => item.key === edition.key)
+                    ? "white"
+                    : "#b91c1c",
+                }}
+              >
+                {collec.some((item: any) => item.key === edition.key)
+                  ? "COLLEC"
+                  : "AJOUTER"}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="flex-1 flex-row p-1 px-4 rounded-3xl border-green-500 border-[1px] items-center"
+              style={{
+                backgroundColor: wishlist.some(
+                  (item: any) => item.key === edition.key
+                )
+                  ? "#22c55e"
+                  : "transparent",
+              }}
+              onPress={handleWishlist}
+            >
+              <Icon.Heart
+                color={
+                  wishlist.some((item: any) => item.key === edition.key)
+                    ? "white"
+                    : "#22c55e"
+                }
+              />
+              <Text
+                className="flex-1 text-center text-lg"
+                style={{
+                  color: wishlist.some((item: any) => item.key === edition.key)
+                    ? "white"
+                    : "#22c55e",
+                }}
+              >
+                {wishlist.some((item: any) => item.key === edition.key)
+                  ? "SUIVIS"
+                  : "SUIVRE"}
+              </Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             className="flex flex-row justify-between items-center py-4"
             onPress={() =>

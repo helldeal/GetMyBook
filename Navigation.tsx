@@ -105,7 +105,7 @@ function BottomNav() {
         />
         <BottomTab.Screen
           name="Collection"
-          component={CollecScreen}
+          component={CollecStack}
           options={{
             tabBarIcon: ({ color }) => <Icon.Book color={color} />,
           }}
@@ -131,6 +131,22 @@ function SearchStack() {
       }}
     >
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="BookScreen" component={BookScreen} />
+      <Stack.Screen name="EditionScreen" component={EditionScreen} />
+      <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function CollecStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name="CollecScreen" component={CollecScreen} />
       <Stack.Screen name="BookScreen" component={BookScreen} />
       <Stack.Screen name="EditionScreen" component={EditionScreen} />
       <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
