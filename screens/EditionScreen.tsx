@@ -92,10 +92,12 @@ export const EditionScreen = ({ route, navigation }: any) => {
       </View>
 
       {loading ? (
-        <Loading />
+        <View className="mt-20 flex justify-center items-center h-full">
+          <Loading />
+        </View>
       ) : (
         <ScrollView
-          className="px-5 gap-2 pt-60 bg-white"
+          className="px-5 pt-60 bg-white"
           showsVerticalScrollIndicator={false}
         >
           <View>
@@ -109,35 +111,78 @@ export const EditionScreen = ({ route, navigation }: any) => {
             )}
           </View>
           <View></View>
-          <View>
-            <Text>{book.title}</Text>
-            <Text>Oeuvre</Text>
-          </View>
+          <TouchableOpacity
+            className="flex flex-row justify-between items-center py-4"
+            onPress={() =>
+              navigation.navigate("BookScreen", {
+                worksKey: book.key,
+              })
+            }
+          >
+            <View>
+              <Text className=" text-red-700 text-lg">{book.title}</Text>
+              <Text className="text-gray-500 text-sm">Oeuvre</Text>
+            </View>
+            <Icon.ChevronRight color={"#a1a1aa"} />
+          </TouchableOpacity>
           <Separator />
-          <View>
-            <Text>
-              {edition.edition_name}
-              {edition.publisher && " " + edition.publisher[0]}
-            </Text>
-            <Text>Edition</Text>
-          </View>
-          <Separator />
+          <TouchableOpacity className="flex flex-row justify-between items-center py-4">
+            <View>
+              <Text className=" text-red-700 text-lg">
+                {edition.publishers && edition.publishers[0]}
+              </Text>
+              {edition.edition_name && (
+                <Text className="text-gray-500 text-sm">
+                  {edition.edition_name}
+                </Text>
+              )}
+              <Text className="text-gray-500 text-sm">Edition</Text>
+            </View>
+            <Icon.ChevronRight color={"#a1a1aa"} />
+          </TouchableOpacity>
           {edition.isbn_10 || edition.identifiers?.amazon ? (
-            <TouchableOpacity onPress={amazonHandlePress}>
-              <Text className="text-red-600">Amazon</Text>
+            <TouchableOpacity
+              className="bg-yellow-500 my-4 py-2 px-4 rounded-3xl flex justify-center items-center"
+              onPress={amazonHandlePress}
+            >
+              <Text className="text-white">Amazon</Text>
             </TouchableOpacity>
           ) : null}
           <Separator />
-          <Text>{book.description}</Text>
+
+          {book.description && (
+            <View className="flex gap-2 py-6">
+              <Text className=" text-xl">Résumé</Text>
+              <Text>{book.description}</Text>
+            </View>
+          )}
           <Separator />
-          <Text>{edition.number_of_pages}</Text>
-          <Text>{edition.publish_date}</Text>
-          <Text>
-            ISBN:{" "}
-            {edition.isbn_13
-              ? edition.isbn_13[0]
-              : edition.isbn_10 && edition.isbn_10[0]}
-          </Text>
+          <View className="flex gap-2 py-6">
+            <Text className=" text-xl">Détails</Text>
+            {edition.publish_date && (
+              <View className="flex flex-row items-center pt-2">
+                <Icon.Calendar className="mr-2" color={"#000"} width={20} />
+                <Text>{edition.publish_date}</Text>
+              </View>
+            )}
+            {edition.number_of_pages && (
+              <View className="flex flex-row items-center">
+                <Icon.BookOpen className="mr-2" color={"#000"} width={20} />
+                <Text>{edition.number_of_pages}</Text>
+              </View>
+            )}
+            {(edition.isbn_13 || edition.isbn_10) && (
+              <View className="flex flex-row items-center">
+                <Icon.Camera className="mr-2" color={"#000"} width={20} />
+                <Text>
+                  ISBN:{" "}
+                  {edition.isbn_13
+                    ? edition.isbn_13[0]
+                    : edition.isbn_10 && edition.isbn_10[0]}
+                </Text>
+              </View>
+            )}
+          </View>
           <View className="h-60"></View>
         </ScrollView>
       )}

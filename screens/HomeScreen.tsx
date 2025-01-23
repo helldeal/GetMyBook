@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import * as Notifications from "expo-notifications";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Loading from "../components/Loading";
-import { readList } from "../hooks/storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 Notifications.setNotificationHandler({
