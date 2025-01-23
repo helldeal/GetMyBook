@@ -7,6 +7,10 @@ import * as Icon from "react-native-feather";
 import { createStackNavigator } from "@react-navigation/stack";
 import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SearchScreen from "./screens/SearchScreen";
+import { BookScreen } from "./screens/BookScreen";
+import { AuthorScreen } from "./screens/AuthorScreen";
+import { EditionScreen } from "./screens/EditionScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -34,54 +38,119 @@ export default function Navigation() {
   );
 }
 
+import { KeyboardAvoidingView, Platform, Keyboard, View } from "react-native";
+import { useEffect, useState } from "react";
+
 function BottomNav() {
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
-    <BottomTab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: "#fff",
-        tabBarInactiveTintColor: "#363636",
-        tabBarActiveBackgroundColor: "#0090ff",
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          position: "absolute",
-          bottom: 0,
-          paddingHorizontal: 20,
-          left: 0,
-          right: 0,
-          height: 80,
-          borderTopWidth: 1,
-          backgroundColor: "#FFFFFFAA",
-          borderTopColor: "#e5e5e5",
-          justifyContent: "space-between",
-          shadowColor: "#fff",
-        },
-        tabBarIconStyle: {
-          color: "#fff",
-        },
-        tabBarItemStyle: {
-          top: 15,
-          bottom: 15,
-          height: "61%",
-          borderRadius: 50,
-        },
-      }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
-      <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+      <BottomTab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: "#e82604",
+          tabBarInactiveTintColor: "#363636",
+          tabBarStyle: {
+            display: keyboardVisible ? "none" : "flex", // Masquer complètement
+            position: "relative",
+            paddingHorizontal: 20,
+            left: 0,
+            right: 0,
+            height: 60,
+            borderTopWidth: 1,
+            backgroundColor: "#FFFFFFAA",
+            borderTopColor: "#e5e5e5",
+            justifyContent: "space-between",
+            shadowColor: "#fff",
+          },
+          tabBarIconStyle: {
+            color: "#fff",
+          },
+          tabBarItemStyle: {
+            top: 15,
+            bottom: 15,
+            height: "61%",
+            borderRadius: 50,
+          },
+        }}
+      >
+        <BottomTab.Screen
+          name="Nouveautés"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Recherche"
+          component={SearchStack}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.Search color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Collection"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.Book color={color} />,
+          }}
+        />
+      </BottomTab.Navigator>
+    </KeyboardAvoidingView>
+  );
+}
+
+function SearchStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <Icon.Home color={color} />,
         }}
       />
-      <BottomTab.Screen
-        name="Profile"
-        component={ProfileScreen}
+      <Stack.Screen
+        name="BookScreen"
+        component={BookScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditionScreen"
+        component={EditionScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <Icon.User color={color} />,
         }}
       />
-    </BottomTab.Navigator>
+      <Stack.Screen
+        name="AuthorScreen"
+        component={AuthorScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
