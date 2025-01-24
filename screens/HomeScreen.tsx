@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }: any) {
   }, [isFocused]);
 
   return (
-    <SafeAreaView className=" flex bg-white w-full h-full dark:bg-[#131f24]">
+    <SafeAreaView className=" flex bg-white w-full h-full">
       <ScrollView className="flex gap-2 px-5">
         <Text className="pt-4 text-3xl font-extralight ">
           Livres en vedette

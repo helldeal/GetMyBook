@@ -49,7 +49,7 @@ export const BookScreen = ({ route, navigation }: any) => {
   }, [isFocused]);
 
   return (
-    <SafeAreaView className="flex bg-white w-full h-full dark:bg-[#131f24]">
+    <SafeAreaView className="flex bg-white w-full h-full">
       <BookScreenHeader navigation={navigation} />
       {loading ? (
         <Loading />

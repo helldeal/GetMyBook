@@ -1,9 +1,8 @@
-import data from "./libraries.json";
-const librairies = JSON.parse(JSON.stringify(data));
+import { getAllLibrariesFromJSON } from "./api";
 
 export function getAllLibraries(): any {
   try {
-    return librairies.filter(
+    return getAllLibrariesFromJSON().filter(
       (library: any) =>
         library.latitude &&
         library.longitude &&
@@ -13,14 +12,5 @@ export function getAllLibraries(): any {
   } catch (error) {
     console.error("Error retrieving libraries:", error);
     return [];
-  }
-}
-
-export function getLibraryById(siret: string): any {
-  try {
-    return librairies.find((library: any) => library.SIRET === siret);
-  } catch (error) {
-    console.error("Error retrieving library by id:", error);
-    return {};
   }
 }
