@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import { StatusBar } from "react-native";
 import { getAllLibraries } from "../api/library";
@@ -63,7 +63,7 @@ export default function MapScreen({ navigation }: any) {
         className="flex-1 absolute top-0 left-0 right-0 bottom-0"
         ref={mapRef}
         style={{ flex: 1 }}
-        provider="google"
+        provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={region}
         customMapStyle={standardMapType}

@@ -19,7 +19,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.helldeal.getmybook"
+      "package": "com.helldeal.getmybook",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB-l-A7BiNgCTuvbU3PTRL4SqlZxLFEI2E"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
