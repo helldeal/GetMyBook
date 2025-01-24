@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import * as Icon from "react-native-feather";
@@ -37,6 +38,8 @@ export const AuthorScreen = ({ route, navigation }: any) => {
 
   useEffect(() => {
     if (isFocused) {
+      StatusBar.setBarStyle("dark-content");
+      console.log("Nav on Author Page : ", authorKey);
       init();
     }
   }, [isFocused]);

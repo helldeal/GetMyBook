@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image } from "react-native";
+import { View, Image, StatusBar } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { TouchableOpacity, Text } from "react-native";
@@ -19,6 +19,7 @@ export const CollecScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     if (isFocused) {
+      StatusBar.setBarStyle("dark-content");
       console.log("CollecScreen is focused");
     }
   }, [isFocused]);

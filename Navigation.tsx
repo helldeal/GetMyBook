@@ -25,7 +25,6 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Nav" component={BottomNav} />
-        <Stack.Screen name="ScanScreen" component={ScanScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -147,6 +146,7 @@ function SearchStack() {
       }}
     >
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="ScanScreen" component={ScanScreen} />
       <Stack.Screen name="BookScreen" component={BookScreen} />
       <Stack.Screen name="EditionScreen" component={EditionScreen} />
       <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
@@ -163,6 +163,7 @@ function CollecStack() {
       }}
     >
       <Stack.Screen name="CollecScreen" component={CollecScreen} />
+      <Stack.Screen name="ScanScreen" component={ScanScreen} />
       <Stack.Screen name="BookScreen" component={BookScreen} />
       <Stack.Screen name="EditionScreen" component={EditionScreen} />
       <Stack.Screen name="AuthorScreen" component={AuthorScreen} />

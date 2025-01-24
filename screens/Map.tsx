@@ -26,6 +26,7 @@ export default function MapScreen({ navigation }: any) {
   useEffect(() => {
     if (isFocused) {
       console.log("Nav on Map Page");
+      StatusBar.setBarStyle("dark-content");
       const getLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
@@ -57,7 +58,9 @@ export default function MapScreen({ navigation }: any) {
 
   return (
     <SafeAreaView className=" flex bg-white w-full h-full dark:bg-[#131f24]">
+      <StatusBar translucent />
       <MapView
+        className="flex-1 absolute top-0 left-0 right-0 bottom-0"
         ref={mapRef}
         style={{ flex: 1 }}
         provider="google"
