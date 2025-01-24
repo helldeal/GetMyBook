@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Icon from "react-native-feather";
 import { styles } from "../style/style";
-import { searchBook } from "../api/books";
+import { searchBooks } from "../api/books";
 import Separator from "../components/Separator";
 
 export default function SearchScreen({ navigation }: any) {
@@ -33,7 +33,7 @@ export default function SearchScreen({ navigation }: any) {
       return;
     }
     console.log("Search for: ", text);
-    const searchResult = await searchBook(text);
+    const searchResult = await searchBooks(text);
     searchResult && setSearch(searchResult);
   };
 

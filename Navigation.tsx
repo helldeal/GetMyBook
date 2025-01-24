@@ -33,28 +33,6 @@ export default function Navigation() {
 }
 
 function BottomNav() {
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setKeyboardVisible(true);
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardVisible(false);
-      }
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -66,7 +44,6 @@ function BottomNav() {
           tabBarActiveTintColor: "#e82604",
           tabBarInactiveTintColor: "#363636",
           tabBarStyle: {
-            display: keyboardVisible ? "none" : "flex",
             position: "relative",
             paddingHorizontal: 20,
             left: 0,

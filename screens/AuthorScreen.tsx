@@ -10,10 +10,11 @@ import {
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import * as Icon from "react-native-feather";
-import { getAuthor, getEditionFromAuthor } from "../api/books";
+import { getAuthor } from "../api/books";
 import Loading from "../components/Loading";
 import Separator from "../components/Separator";
 import BookScreenHeader from "../components/BookScreenHeader";
+import { getBooksFromAuthorOLAPI } from "../api/api";
 
 export const AuthorScreen = ({ route, navigation }: any) => {
   const { authorKey } = route.params;
@@ -27,7 +28,7 @@ export const AuthorScreen = ({ route, navigation }: any) => {
       const authorData = await getAuthor(authorKey);
       setAuthor(authorData);
 
-      const booksData = await getEditionFromAuthor(authorKey);
+      const booksData = await getBooksFromAuthorOLAPI(authorKey);
       setBooks(booksData.entries || []);
     } catch (error) {
       console.error("Erreur lors de la récupération des données :", error);
