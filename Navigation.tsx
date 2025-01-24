@@ -90,10 +90,10 @@ function BottomNav() {
         }}
       >
         <BottomTab.Screen
-          name="Nouveautés"
-          component={HomeScreen}
+          name="Réseau"
+          component={HomeStack}
           options={{
-            tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
+            tabBarIcon: ({ color }) => <Icon.Globe color={color} />,
           }}
         />
         <BottomTab.Screen
@@ -111,7 +111,7 @@ function BottomNav() {
           }}
         />
         <BottomTab.Screen
-          name="Map"
+          name="Bibliothèques"
           component={MapScreen}
           options={{
             tabBarIcon: ({ color }) => <Icon.Map color={color} />,
@@ -119,6 +119,22 @@ function BottomNav() {
         />
       </BottomTab.Navigator>
     </KeyboardAvoidingView>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="BookScreen" component={BookScreen} />
+      <Stack.Screen name="EditionScreen" component={EditionScreen} />
+      <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
+    </Stack.Navigator>
   );
 }
 
