@@ -3,12 +3,18 @@ import { View, Text, StyleSheet, StatusBar, Image, Alert } from "react-native";
 import { Camera, CameraView } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getEditionFromISBN } from "../api/books";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ScanScreen({ navigation }: any) {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
+    if (isFocused) {
+      StatusBar.setBarStyle("light-content");
+      console.log("Nav on Scan Page");
+    }
     const getCameraPermissions = async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
