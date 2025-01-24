@@ -33,69 +33,88 @@ export default function Navigation() {
 }
 
 function BottomNav() {
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+    <BottomTab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#e82604",
+        tabBarInactiveTintColor: "#363636",
+        tabBarStyle: {
+          display: keyboardVisible ? "none" : "flex",
+          position: "relative",
+          paddingHorizontal: 20,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 60,
+          borderTopWidth: 1,
+          backgroundColor: "#FFFFFFAA",
+          borderTopColor: "#eeeeee",
+          justifyContent: "space-between",
+          shadowColor: "#fff",
+        },
+        tabBarIconStyle: {
+          color: "#fff",
+        },
+        tabBarItemStyle: {
+          top: 15,
+          bottom: 15,
+          height: "61%",
+          borderRadius: 50,
+        },
+      }}
     >
-      <BottomTab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: "#e82604",
-          tabBarInactiveTintColor: "#363636",
-          tabBarStyle: {
-            position: "relative",
-            paddingHorizontal: 20,
-            left: 0,
-            right: 0,
-            height: 60,
-            borderTopWidth: 1,
-            backgroundColor: "#FFFFFFAA",
-            borderTopColor: "#eeeeee",
-            justifyContent: "space-between",
-            shadowColor: "#fff",
-          },
-          tabBarIconStyle: {
-            color: "#fff",
-          },
-          tabBarItemStyle: {
-            top: 15,
-            bottom: 15,
-            height: "61%",
-            borderRadius: 50,
-          },
+      <BottomTab.Screen
+        name="Réseau"
+        component={HomeStack}
+        options={{
+          tabBarIcon: ({ color }) => <Icon.Globe color={color} />,
         }}
-      >
-        <BottomTab.Screen
-          name="Réseau"
-          component={HomeStack}
-          options={{
-            tabBarIcon: ({ color }) => <Icon.Globe color={color} />,
-          }}
-        />
-        <BottomTab.Screen
-          name="Recherche"
-          component={SearchStack}
-          options={{
-            tabBarIcon: ({ color }) => <Icon.Search color={color} />,
-          }}
-        />
-        <BottomTab.Screen
-          name="Collection"
-          component={CollecStack}
-          options={{
-            tabBarIcon: ({ color }) => <Icon.Book color={color} />,
-          }}
-        />
-        <BottomTab.Screen
-          name="Bibliothèques"
-          component={MapScreen}
-          options={{
-            tabBarIcon: ({ color }) => <Icon.Map color={color} />,
-          }}
-        />
-      </BottomTab.Navigator>
-    </KeyboardAvoidingView>
+      />
+      <BottomTab.Screen
+        name="Recherche"
+        component={SearchStack}
+        options={{
+          tabBarIcon: ({ color }) => <Icon.Search color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Collection"
+        component={CollecStack}
+        options={{
+          tabBarIcon: ({ color }) => <Icon.Book color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Bibliothèques"
+        component={MapScreen}
+        options={{
+          tabBarIcon: ({ color }) => <Icon.Map color={color} />,
+        }}
+      />
+    </BottomTab.Navigator>
   );
 }
 
