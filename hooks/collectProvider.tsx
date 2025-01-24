@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { readList, setList } from "../api/asyncStorage";
+import { getCollectionStored, setCollectionStored } from "../api/collection";
 
 const CollecContext = createContext<{ collec: any; setCollec: any }>({
   collec: [],
@@ -16,7 +16,7 @@ export const CollecProvider = ({ children }: any) => {
   const [collec, setCollec] = useState([]);
 
   const fetchCollection = async () => {
-    const storedCollec = await readList("collection");
+    const storedCollec = await getCollectionStored();
     if (storedCollec) {
       console.log(
         "Stored Collection:",
@@ -30,7 +30,7 @@ export const CollecProvider = ({ children }: any) => {
     console.log("Collection is loaded");
   }, []);
   const updateStorage = useCallback(async () => {
-    await setList("collection", collec);
+    await setCollectionStored(collec);
     console.log("Collection Storage is updated");
   }, [collec]);
 

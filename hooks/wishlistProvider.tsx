@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { readList, setList } from "../api/asyncStorage";
+import { getWishlistStored, setWishlistStored } from "../api/wishlist";
 
 const WishlistContext = createContext<{ wishlist: any; setWishlist: any }>({
   wishlist: [],
@@ -16,7 +16,7 @@ export const WishlistProvider = ({ children }: any) => {
   const [wishlist, setWishlist] = useState([]);
 
   const fetchWishlist = async () => {
-    const storedWishlist = await readList("wishlist");
+    const storedWishlist = await getWishlistStored();
     if (storedWishlist) {
       console.log(
         "Stored Wishlist:",
@@ -30,7 +30,7 @@ export const WishlistProvider = ({ children }: any) => {
     console.log("Wishlist is loaded");
   }, []);
   const updateStorage = useCallback(async () => {
-    await setList("wishlist", wishlist);
+    await setWishlistStored(wishlist);
     console.log("Wishlist Storage is updated");
   }, [wishlist]);
 
