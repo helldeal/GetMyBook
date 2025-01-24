@@ -14,6 +14,7 @@ import * as Icon from "react-native-feather";
 import { COVER_API_URL } from "../constants/Utils";
 import Loading from "../components/Loading";
 import Separator from "../components/Separator";
+import BookScreenHeader from "../components/BookScreenHeader";
 
 export const BookScreen = ({ route, navigation }: any) => {
   const { worksKey } = route.params;
@@ -47,9 +48,7 @@ export const BookScreen = ({ route, navigation }: any) => {
 
   return (
     <SafeAreaView className=" flex justify-start bg-white w-full h-full">
-      <View className="flex-row justify-start p-3 px-6 bg-white z-50 border-b-[1px] border-[#eeeeee]">
-        <Icon.ArrowLeft color={"#b70707"} onPress={() => navigation.goBack()} />
-      </View>
+      <BookScreenHeader navigation={navigation} />
       {loading ? (
         <Loading />
       ) : (

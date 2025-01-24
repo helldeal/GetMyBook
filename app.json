@@ -25,7 +25,6 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      
       [
         "expo-notifications",
         {
@@ -36,7 +35,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "e8e3d8d3-9f60-4c34-a508-0674700284de"
+        "projectId": "86ab8a29-c96d-4df8-8a4c-25bf6ad1d25d"
       }
     },
     "owner": "helldeal"

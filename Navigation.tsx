@@ -1,45 +1,36 @@
 import "react-native-gesture-handler";
+import { KeyboardAvoidingView, Platform, Keyboard } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./screens/HomeScreen";
-import ProfileScreen from "./screens/ProfileScreen";
 import * as Icon from "react-native-feather";
-import { createStackNavigator } from "@react-navigation/stack";
 import ScanScreen from "./screens/ScanScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SearchScreen from "./screens/SearchScreen";
 import { BookScreen } from "./screens/BookScreen";
 import { AuthorScreen } from "./screens/AuthorScreen";
 import { EditionScreen } from "./screens/EditionScreen";
+import MapScreen from "./screens/Map";
+import { CollecScreen } from "./screens/CollecScreen";
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Nav"
-          component={BottomNav}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ScanScreen"
-          component={ScanScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Nav" component={BottomNav} />
+        <Stack.Screen name="ScanScreen" component={ScanScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-import { KeyboardAvoidingView, Platform, Keyboard, View } from "react-native";
-import { useEffect, useState } from "react";
 
 function BottomNav() {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
@@ -75,7 +66,7 @@ function BottomNav() {
           tabBarActiveTintColor: "#e82604",
           tabBarInactiveTintColor: "#363636",
           tabBarStyle: {
-            display: keyboardVisible ? "none" : "flex", // Masquer complètement
+            display: keyboardVisible ? "none" : "flex",
             position: "relative",
             paddingHorizontal: 20,
             left: 0,
@@ -99,10 +90,10 @@ function BottomNav() {
         }}
       >
         <BottomTab.Screen
-          name="Nouveautés"
-          component={HomeScreen}
+          name="Réseau"
+          component={HomeStack}
           options={{
-            tabBarIcon: ({ color }) => <Icon.FileText color={color} />,
+            tabBarIcon: ({ color }) => <Icon.Globe color={color} />,
           }}
         />
         <BottomTab.Screen
@@ -114,9 +105,16 @@ function BottomNav() {
         />
         <BottomTab.Screen
           name="Collection"
-          component={ProfileScreen}
+          component={CollecStack}
           options={{
             tabBarIcon: ({ color }) => <Icon.Book color={color} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Bibliothèques"
+          component={MapScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon.Map color={color} />,
           }}
         />
       </BottomTab.Navigator>
@@ -124,33 +122,50 @@ function BottomNav() {
   );
 }
 
+function HomeStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="BookScreen" component={BookScreen} />
+      <Stack.Screen name="EditionScreen" component={EditionScreen} />
+      <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function SearchStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="SearchScreen"
-        component={SearchScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="BookScreen"
-        component={BookScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="EditionScreen"
-        component={EditionScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="AuthorScreen"
-        component={AuthorScreen}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="BookScreen" component={BookScreen} />
+      <Stack.Screen name="EditionScreen" component={EditionScreen} />
+      <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function CollecStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name="CollecScreen" component={CollecScreen} />
+      <Stack.Screen name="BookScreen" component={BookScreen} />
+      <Stack.Screen name="EditionScreen" component={EditionScreen} />
+      <Stack.Screen name="AuthorScreen" component={AuthorScreen} />
     </Stack.Navigator>
   );
 }

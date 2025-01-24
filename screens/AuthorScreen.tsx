@@ -12,6 +12,7 @@ import * as Icon from "react-native-feather";
 import { getAuthor, getEditionFromAuthor } from "../api/books";
 import Loading from "../components/Loading";
 import Separator from "../components/Separator";
+import BookScreenHeader from "../components/BookScreenHeader";
 
 export const AuthorScreen = ({ route, navigation }: any) => {
   const { authorKey } = route.params;
@@ -42,15 +43,18 @@ export const AuthorScreen = ({ route, navigation }: any) => {
 
   return (
     <SafeAreaView className="flex justify-start bg-white w-full h-full">
-      <View className="flex-row justify-start py-3 px-6  z-50">
-        <Icon.ArrowLeft color={"#b70707"} onPress={() => navigation.goBack()} />
-      </View>
+      <BookScreenHeader navigation={navigation} />
       {loading ? (
         <Loading />
       ) : (
         <ScrollView className="gap-2" showsVerticalScrollIndicator={false}>
-          <Text>{author.name}</Text>
-          <Text>{author.birth_date}</Text>
+          <Text className="px-5 text-3xl font-extralight">{author.name}</Text>
+          {author.birth_date && (
+            <View className=" px-5 flex flex-row items-center pt-2">
+              <Icon.Calendar className="mr-2" color={"#000"} width={20} />
+              <Text>{author.birth_date}</Text>
+            </View>
+          )}
           <View className="px-5">
             {books.slice(0, 25).map((book) => (
               <View key={book.key}>

@@ -39,7 +39,7 @@ export default function ScanScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden />
+      <StatusBar translucent barStyle={"light-content"} />
       <CameraView
         onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
         barcodeScannerSettings={{
