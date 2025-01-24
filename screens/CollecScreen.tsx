@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image } from "react-native";
+import { View, Image, StatusBar } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { TouchableOpacity, Text } from "react-native";
@@ -19,6 +19,7 @@ export const CollecScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     if (isFocused) {
+      StatusBar.setBarStyle("dark-content");
       console.log("CollecScreen is focused");
     }
   }, [isFocused]);
@@ -32,7 +33,7 @@ export const CollecScreen = ({ navigation }: any) => {
           onPress={() => setCollecBool(true)}
         >
           <Text style={{ color: !collecBool ? "#b91c1c " : "white" }}>
-            Collection
+            COLLECTION
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -41,8 +42,32 @@ export const CollecScreen = ({ navigation }: any) => {
           onPress={() => setCollecBool(false)}
         >
           <Text style={{ color: collecBool ? "#b91c1c" : "white" }}>
-            Suivis
+            SUIVIS
           </Text>
+        </TouchableOpacity>
+      </View>
+      <View className="flex-row pt-4 px-5 items-center">
+        <Text className="text-3xl font-bold">
+          {collecBool
+            ? collec.length
+            : wishlist.filter(
+                (item: any) =>
+                  !collec.some((collecItem: any) => collecItem.key === item.key)
+              ).length}
+        </Text>
+        <Text className="text-xl"> LIVRES</Text>
+      </View>
+      <View className="flex-row justify-start p-3 gap-5 px-10 pt-4">
+        <TouchableOpacity
+          className="flex-row p-2 px-4 rounded-3xl border-black border-[1px] items-center"
+          onPress={() => navigation.navigate("ScanScreen")}
+        >
+          <Icon.Camera className="mr-2" color={"black"} />
+          <Text>SCAN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="flex-row p-2 px-4 rounded-3xl border-black border-[1px] items-center">
+          <Icon.Share className="mr-2" color={"black"} />
+          <Text>PARTAGER</Text>
         </TouchableOpacity>
       </View>
       {collecBool ? (

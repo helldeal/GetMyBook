@@ -9,7 +9,7 @@ export default function App() {
       <WishlistProvider>
         <View style={{ flex: 1 }} className="mt-0">
           <Navigation />
-          <StatusBar barStyle={"dark-content"} backgroundColor="transparent" />
+          <StatusBar backgroundColor="transparent" />
         </View>
       </WishlistProvider>
     </CollecProvider>

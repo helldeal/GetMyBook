@@ -59,12 +59,15 @@ export const EditionScreen = ({ route, navigation }: any) => {
   const amazonHandlePress = useCallback(async () => {
     const url = edition.identifiers?.amazon
       ? "https://www.amazon.fr/dp/" + edition.identifiers.amazon[0]
+      : edition.isbn_13
+      ? "https://www.amazon.fr/s?k=" + edition.isbn_13[0]
       : "https://www.amazon.fr/s?k=" + edition.isbn_10[0];
     await Linking.openURL(url);
   }, []);
 
   useEffect(() => {
     if (isFocused) {
+      StatusBar.setBarStyle("light-content");
       console.log("Nav on Edition Page : ", editionKey);
       init();
     }
@@ -74,7 +77,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
       className=" flex justify-start bg-white w-full h-full"
       style={{ paddingTop: StatusBar.currentHeight }}
     >
-      <StatusBar translucent barStyle={"light-content"} />
+      <StatusBar translucent />
       <BookScreenHeader navigation={navigation} />
 
       <View className=" absolute flex justify-center w-full h-72 bg-gray-100 top-0 z-20">
@@ -201,6 +204,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
             <Icon.ChevronRight color={"#a1a1aa"} />
           </TouchableOpacity>
           <Separator />
+
           <TouchableOpacity className="flex flex-row justify-between items-center py-4">
             <View>
               <Text className=" text-red-700 text-lg">
@@ -215,7 +219,7 @@ export const EditionScreen = ({ route, navigation }: any) => {
             </View>
             <Icon.ChevronRight color={"#a1a1aa"} />
           </TouchableOpacity>
-          {edition.isbn_10 || edition.identifiers?.amazon ? (
+          {edition.isbn_10 || edition.isbn_13 || edition.identifiers?.amazon ? (
             <TouchableOpacity
               className="bg-yellow-500 my-4 py-2 px-4 rounded-3xl flex justify-center items-center"
               onPress={amazonHandlePress}
@@ -224,11 +228,14 @@ export const EditionScreen = ({ route, navigation }: any) => {
             </TouchableOpacity>
           ) : null}
           <Separator />
-
           {book.description && (
             <View className="flex gap-2 py-6">
               <Text className=" text-xl">Résumé</Text>
-              <Text>{book.description}</Text>
+              <Text>
+                {typeof book.description === "string"
+                  ? book.description
+                  : book.description.value}
+              </Text>
             </View>
           )}
           <Separator />

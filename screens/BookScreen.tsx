@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   FlatList,
+  StatusBar,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { getAuthor, getBook, getEditions } from "../api/books";
 import * as Icon from "react-native-feather";
@@ -41,13 +42,14 @@ export const BookScreen = ({ route, navigation }: any) => {
 
   useEffect(() => {
     if (isFocused) {
+      StatusBar.setBarStyle("dark-content");
       console.log("Nav on Book Page : ", worksKey);
       init();
     }
   }, [isFocused]);
 
   return (
-    <SafeAreaView className=" flex justify-start bg-white w-full h-full">
+    <SafeAreaView className="flex bg-white w-full h-full dark:bg-[#131f24]">
       <BookScreenHeader navigation={navigation} />
       {loading ? (
         <Loading />

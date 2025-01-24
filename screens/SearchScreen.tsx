@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
+  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Icon from "react-native-feather";
@@ -20,6 +21,7 @@ export default function SearchScreen({ navigation }: any) {
 
   useEffect(() => {
     if (isFocused) {
+      StatusBar.setBarStyle("dark-content");
       console.log("Nav on Search Page");
     }
   }, [isFocused]);
@@ -36,7 +38,7 @@ export default function SearchScreen({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView className=" flex bg-white w-full h-full dark:bg-[#131f24]">
+    <SafeAreaView className="flex bg-white w-full h-full dark:bg-[#131f24]">
       <View style={styles.searchBarwQR} className="my-2 px-4">
         <View style={styles.searchBar}>
           <TextInput
