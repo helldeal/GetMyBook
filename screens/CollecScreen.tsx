@@ -55,7 +55,7 @@ export const CollecScreen = ({ navigation }: any) => {
                   !collec.some((collecItem: any) => collecItem.key === item.key)
               ).length}
         </Text>
-        <Text className="text-xl"> LIVRES</Text>
+        <Text className="text-xl font-light"> LIVRES</Text>
       </View>
       <View className="flex-row justify-start p-3 gap-5 px-10 pt-4">
         <TouchableOpacity
