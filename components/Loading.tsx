@@ -11,7 +11,7 @@ const Loading = () => {
         flex: 1,
         zIndex: 10,
       }}
-      className="px-0 bg-white w-full h-full dark:bg-[#131f24]"
+      className="px-0 bg-white w-full h-full "
     >
       <ActivityIndicator
         className="self-center -mt-[50%]"

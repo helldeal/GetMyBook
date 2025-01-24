@@ -38,7 +38,7 @@ export default function SearchScreen({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView className="flex bg-white w-full h-full dark:bg-[#131f24]">
+    <SafeAreaView className="flex bg-white w-full h-full ">
       <View style={styles.searchBarwQR} className="my-2 px-4">
         <View style={styles.searchBar}>
           <TextInput
@@ -64,7 +64,7 @@ export default function SearchScreen({ navigation }: any) {
         ItemSeparatorComponent={() => <Separator />}
         renderItem={({ item }: any) => (
           <TouchableOpacity
-            className="bg-white border-b-[#e5e5e5] flex flex-row justify-between items-center dark:bg-[#131f24] dark:border-b-[#37464f]"
+            className="bg-white border-b-[#e5e5e5] flex flex-row justify-between items-center"
             onPress={() =>
               navigation.navigate("BookScreen", { worksKey: item.key })
             }

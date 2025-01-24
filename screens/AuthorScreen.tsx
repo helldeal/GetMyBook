@@ -65,7 +65,7 @@ export const AuthorScreen = ({ route, navigation }: any) => {
                   onPress={() =>
                     navigation.navigate("BookScreen", { worksKey: book.key })
                   }
-                  className="bg-white border-b-[#e5e5e5] flex flex-row justify-between items-center dark:bg-[#131f24] dark:border-b-[#37464f]"
+                  className="bg-white border-b-[#e5e5e5] flex flex-row justify-between items-center"
                 >
                   <Text className="py-3 flex-1 flex-row justify-start items-center flex-wrap">
                     {book.title}

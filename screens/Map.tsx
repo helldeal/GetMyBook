@@ -57,7 +57,7 @@ export default function MapScreen({ navigation }: any) {
   }, [isFocused]);
 
   return (
-    <SafeAreaView className=" flex bg-white w-full h-full dark:bg-[#131f24]">
+    <SafeAreaView className=" flex bg-white w-full h-full ">
       <StatusBar translucent />
       <MapView
         className="flex-1 absolute top-0 left-0 right-0 bottom-0"
